@@ -8,9 +8,13 @@
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	0.0.0	/3f0ea94c/
 Board	tetris/tetris.py	/^Board = Dict[$/;"	v
-I_KICKS	tetris/tetris.py	/^I_KICKS = [$/;"	v
-KICKS	tetris/tetris.py	/^KICKS = [$/;"	v
+DIRECTION_MAP	tetris/tetris.py	/^DIRECTION_MAP = {'clockwise': 1, 'counterclockwise': -1}$/;"	v
+I_OFFSETS	tetris/tetris.py	/^I_OFFSETS = [$/;"	v
+OFFSETS	tetris/tetris.py	/^OFFSETS = [$/;"	v
+O_OFFSETS	tetris/tetris.py	/^O_OFFSETS = [$/;"	v
+ROTATE_MAP	tetris/tetris.py	/^ROTATE_MAP = {'0': 0, 'R': 1, '2': 2, 'L': 3}$/;"	v
 TETROMINOES	tetris/tetris.py	/^TETROMINOES = [$/;"	v
+TETROMINO_MAP	tetris/tetris.py	/^TETROMINO_MAP = {'I': 0, 'J': 1, 'L': 2, 'O': 3, 'S': 4, 'T': 5, 'Z': 6}$/;"	v
 __author__	tetris/tetris.py	/^__author__ = 'John Evans'$/;"	v
 __copyright__	tetris/tetris.py	/^__copyright__ = ''$/;"	v
 __credits__	tetris/tetris.py	/^__credits__ = ['John Evans']$/;"	v
@@ -19,8 +23,13 @@ __license__	tetris/tetris.py	/^__license__ = 'Apache License 2.0'$/;"	v
 __maintainer__	tetris/tetris.py	/^__maintainer__ = 'John Evans'$/;"	v
 __status__	tetris/tetris.py	/^__status__ = 'Development'$/;"	v
 __version__	tetris/tetris.py	/^__version__ = '0.0.1'$/;"	v
+collision	tetris/tetris.py	/^def collision(board_state: Board, tetromino: List[int]) -> bool:$/;"	f
 display	tetris/tetris.py	/^def display(board_state: Board) -> None:$/;"	f
+lock	tetris/tetris.py	/^def lock(board_state: Board) -> Union[bool, Board]:$/;"	f
 long_description	setup.py	/^    long_description = fh.read()$/;"	v
 move	tetris/tetris.py	/^def move(board_state: Board, key: str = 'down') -> Board:$/;"	f
-rot	tetris/tetris.py	/^    def rot(idx: int, dim: int) -> int:$/;"	f	function:rotate	file:
-rotate	tetris/tetris.py	/^def rotate(tetromino: List[int]) -> List[int]:$/;"	f
+rot	tetris/tetris.py	/^    def rot(idx: int, dim: int) -> int:$/;"	f	function:true_rotate	file:
+rotate	tetris/tetris.py	/^def rotate(board_state: Board, direction: str = 'clockwise') -> Board:$/;"	f
+store	tetris/tetris.py	/^def store(board_state: Board) -> Board:$/;"	f
+translate	tetris/tetris.py	/^def translate(board_state: Board, direction: str = 'down') -> Board:$/;"	f
+true_rotate	tetris/tetris.py	/^def true_rotate(tetromino: List[int]) -> List[int]:$/;"	f
