@@ -7,4 +7,20 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	0.0.0	/3f0ea94c/
+Board	tetris/tetris.py	/^Board = Dict[$/;"	v
+I_KICKS	tetris/tetris.py	/^I_KICKS = [$/;"	v
+KICKS	tetris/tetris.py	/^KICKS = [$/;"	v
+TETROMINOES	tetris/tetris.py	/^TETROMINOES = [$/;"	v
+__author__	tetris/tetris.py	/^__author__ = 'John Evans'$/;"	v
+__copyright__	tetris/tetris.py	/^__copyright__ = ''$/;"	v
+__credits__	tetris/tetris.py	/^__credits__ = ['John Evans']$/;"	v
+__email__	tetris/tetris.py	/^__email__ = 'thejevans@gmail.com'$/;"	v
+__license__	tetris/tetris.py	/^__license__ = 'Apache License 2.0'$/;"	v
+__maintainer__	tetris/tetris.py	/^__maintainer__ = 'John Evans'$/;"	v
+__status__	tetris/tetris.py	/^__status__ = 'Development'$/;"	v
+__version__	tetris/tetris.py	/^__version__ = '0.0.1'$/;"	v
+display	tetris/tetris.py	/^def display(board_state: Board) -> None:$/;"	f
 long_description	setup.py	/^    long_description = fh.read()$/;"	v
+move	tetris/tetris.py	/^def move(board_state: Board, key: str = 'down') -> Board:$/;"	f
+rot	tetris/tetris.py	/^    def rot(idx: int, dim: int) -> int:$/;"	f	function:rotate	file:
+rotate	tetris/tetris.py	/^def rotate(tetromino: List[int]) -> List[int]:$/;"	f
