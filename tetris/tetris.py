@@ -11,17 +11,22 @@ __status__ = 'Development'
 Docstring
 """
 
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Optional
 
 import time
 
 from pynput import keyboard
 
 Board = Dict[
+    Optional[str],
+    str,
     int,
-    Dict[int, int, int, int],
+    int,
+    Optional[str],
     List[int],
-    List[List[int]],
+    List[int],
+    int,
+    bool,
 ]
 
 TETROMINOES = [
