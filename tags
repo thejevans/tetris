@@ -23,7 +23,7 @@ __license__	tetris/tetris.py	/^__license__ = 'Apache License 2.0'$/;"	v
 __maintainer__	tetris/tetris.py	/^__maintainer__ = 'John Evans'$/;"	v
 __status__	tetris/tetris.py	/^__status__ = 'Development'$/;"	v
 __version__	tetris/tetris.py	/^__version__ = '0.0.1'$/;"	v
-collision	tetris/tetris.py	/^def collision(board_state: Board, tetromino: List[int]) -> bool:$/;"	f
+collision	tetris/tetris.py	/^def collision(board_state: Board) -> bool:$/;"	f
 display	tetris/tetris.py	/^def display(board_state: Board) -> None:$/;"	f
 lock	tetris/tetris.py	/^def lock(board_state: Board) -> Union[bool, Board]:$/;"	f
 long_description	setup.py	/^    long_description = fh.read()$/;"	v
@@ -32,4 +32,4 @@ rot	tetris/tetris.py	/^    def rot(idx: int, dim: int) -> int:$/;"	f	function:tr
 rotate	tetris/tetris.py	/^def rotate(board_state: Board, direction: str = 'clockwise') -> Board:$/;"	f
 store	tetris/tetris.py	/^def store(board_state: Board) -> Board:$/;"	f
 translate	tetris/tetris.py	/^def translate(board_state: Board, direction: str = 'down') -> Board:$/;"	f
-true_rotate	tetris/tetris.py	/^def true_rotate(tetromino: List[int]) -> List[int]:$/;"	f
+true_rotate	tetris/tetris.py	/^def true_rotate(board_state: Board, new_rotation: str = '0') -> List[int]:$/;"	f

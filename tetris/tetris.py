@@ -94,30 +94,46 @@ def display(board_state: Board) -> None:
         board_state: Dictionary containing the board state.
     """
 
-def true_rotate(tetromino: List[int]) -> List[int]:
+def true_rotate(board_state: Board, new_rotation: str = '0') -> List[int]:
     """Rotates a given tetromino clockwise and returns the rotated one.
 
     Args:
-        tetromino: A list representation of the tetromino.
+        board_state: 
+        new_rotation: 
 
     Returns:
         A list representation of the rotated tetromino
+
+    Raises:
+        AssertionError: 
     """
-    
+
     # This nested function returns the new index for a given index after a
     # clockwise rotation.
     def rot(idx: int, dim: int) -> int:
         return (dim - 1 - (idx % dim))*dim + idx//dim
 
-    dim = int(len(tetromino)**0.5)
-    return [tetromino[rot(i, dim)] for i in tetromino]
+    tetromino_idx = TETROMINO_MAP[board_state['tetromino']]
+    tetromino = TETROMINOES[tetromino_idx]
+    current_rotation_idx = ROTATE_MAP[board_state['rotation']]
+    new_rotation_idx = ROTATE_MAP[new_rotation]
 
-def collision(board_state: Board, tetromino: List[int]) -> bool:
+    iterations = (4 + new_rotation_idx - current_rotation_idx) % 4
+
+    assert(iterations != 2)
+
+    dim = int(len(tetromino)**0.5)
+
+    for _ in range(iterations):
+        tetromino = [tetromino[rot(i, dim)] for i in tetromino]
+
+    return tetromino
+
+def collision(board_state: Board) -> bool:
     """Checks if given board results in a collision.
 
     Args:
-        board_state:
-        tetromino:
+        board_state: 
 
     Returns:
         True if there is a collision, False if there is not.
