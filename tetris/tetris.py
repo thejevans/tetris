@@ -13,6 +13,10 @@ Docstring
 
 from typing import Dict, List, Union
 
+import time
+
+from pynput import keyboard
+
 Board = Dict[
     int,
     Dict[int, int, int, int],
@@ -86,6 +90,16 @@ INT_ROTATE = ('0', 'R', '2', 'L')
 TETROMINO_INT = {'I': 0, 'J': 1, 'L': 2, 'O': 3, 'S': 4, 'T': 5, 'Z': 6}
 DIRECTION_INT = {'clockwise': 1, 'counterclockwise': -1}
 
+KEYMAP = { # TODO: change the keys to the correct strings
+    'up': 'up',
+    'down': 'down',
+    'left': 'left',
+    'right': 'right',
+    'clockwise': 'clockwise',
+    'counterclockwise': 'counterclockwise',
+    'store': 'store',
+}
+
 def display(board_state: Board) -> None:
     """Displays the current board state.
 
@@ -94,6 +108,7 @@ def display(board_state: Board) -> None:
     Args:
         board_state: Dictionary containing the board state.
     """
+    # TODO: write this function
 
 def true_rotate(board_state: Board, new_rotation: str = '0') -> List[int]:
     """Rotates a given tetromino clockwise and returns the rotated one.
@@ -139,6 +154,7 @@ def collision(board_state: Board) -> bool:
     Returns:
         True if there is a collision, False if there is not.
     """
+    # TODO: write this function
     pass
 
 
@@ -230,6 +246,7 @@ def translate(board_state: Board, direction: str = 'down') -> Board:
     Returns:
         A new board state.
     """
+    # TODO: write this function
     pass
 
 def store(board_state: Board) -> Board:
@@ -241,6 +258,7 @@ def store(board_state: Board) -> Board:
     Returns:
         A new board state.
     """
+    # TODO: write this function
     pass
 
 def lock(board_state: Board) -> Union[bool, Board]:
@@ -255,6 +273,39 @@ def lock(board_state: Board) -> Union[bool, Board]:
     Returns:
         
     """
+    # TODO: make sure to clear lines
+    # TODO: update score
+    # TODO: write this function
+    pass
+
+def pop(board_state: Board) -> Board:
+    # TODO: make sure to reset the store flag
+    # TODO: write this function
+    pass
+
+def initialize_board() -> Board:
+    """
+
+    """
+    board_state = {
+        'tetromino': None,
+        'rotation': '0',
+        'x': 0,
+        'y': 0,
+        'stored': None,
+        'stack': [],
+        'queue': [],
+        'score': 0,
+        'store_flag': False,
+    }
+    
+    # TODO: initialize stack
+    # TODO: initialize queue
+
+    return board_state
+
+def game_over(board_state: Board) -> bool:
+    # TODO: write this function
     pass
 
 def move(board_state: Board, key: str = 'down') -> Board:
@@ -270,13 +321,43 @@ def move(board_state: Board, key: str = 'down') -> Board:
     Returns:
         The new board state
     """
-    
+
     translations = set('up', 'down', 'left', 'right')
     rotations = set('clockwise', 'counterclockwise')
 
     if key in translations:
+        if board_state['tetromino'] is None:
+            return pop(board_state)
+
+        translated_board_state = translate(board_state, key)
+
+        if locked_board_state := lock(translated_board_state):
+            return locked_board_state
         return translate(board_state, key)
+
     elif key in rotations:
         return rotate(board_state, key)
+
     else: # elif key == 'store':
-        pass
+        return store(board_state)
+
+if __name__ == '__main__':
+    TICK = 0.5
+    board = initialize_board()
+
+    with keyboard.Events() as events:
+        t_i = time.perf_counter()
+        while ~game_over(board):
+            event = events.get(TICK)
+
+            if event is not None:
+                board = move(board, KEYMAP[event])
+                display(board)
+
+            if (time.perf_counter() - t_i) > TICK:
+                t_i = time.perf_counter()
+                board = move(board)
+                display(board)
+
+    print('GAME OVER')
+    input("Press the <ENTER> key to continue...")

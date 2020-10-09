@@ -11,11 +11,13 @@ Board	tetris/tetris.py	/^Board = Dict[$/;"	v
 DIRECTION_INT	tetris/tetris.py	/^DIRECTION_INT = {'clockwise': 1, 'counterclockwise': -1}$/;"	v
 INT_ROTATE	tetris/tetris.py	/^INT_ROTATE = ('0', 'R', '2', 'L')$/;"	v
 I_OFFSETS	tetris/tetris.py	/^I_OFFSETS = [$/;"	v
+KEYMAP	tetris/tetris.py	/^KEYMAP = { # TODO: change the keys to the correct strings$/;"	v
 OFFSETS	tetris/tetris.py	/^OFFSETS = [$/;"	v
 O_OFFSETS	tetris/tetris.py	/^O_OFFSETS = [$/;"	v
 ROTATE_INT	tetris/tetris.py	/^ROTATE_INT = {'0': 0, 'R': 1, '2': 2, 'L': 3}$/;"	v
 TETROMINOES	tetris/tetris.py	/^TETROMINOES = [$/;"	v
 TETROMINO_INT	tetris/tetris.py	/^TETROMINO_INT = {'I': 0, 'J': 1, 'L': 2, 'O': 3, 'S': 4, 'T': 5, 'Z': 6}$/;"	v
+TICK	tetris/tetris.py	/^    TICK = 0.5$/;"	v
 __author__	tetris/tetris.py	/^__author__ = 'John Evans'$/;"	v
 __copyright__	tetris/tetris.py	/^__copyright__ = ''$/;"	v
 __credits__	tetris/tetris.py	/^__credits__ = ['John Evans']$/;"	v
@@ -24,14 +26,23 @@ __license__	tetris/tetris.py	/^__license__ = 'Apache License 2.0'$/;"	v
 __maintainer__	tetris/tetris.py	/^__maintainer__ = 'John Evans'$/;"	v
 __status__	tetris/tetris.py	/^__status__ = 'Development'$/;"	v
 __version__	tetris/tetris.py	/^__version__ = '0.0.1'$/;"	v
+board	tetris/tetris.py	/^                board = move(board)$/;"	v
+board	tetris/tetris.py	/^                board = move(board, KEYMAP[event])$/;"	v
+board	tetris/tetris.py	/^    board = initialize_board()$/;"	v
 collision	tetris/tetris.py	/^def collision(board_state: Board) -> bool:$/;"	f
 display	tetris/tetris.py	/^def display(board_state: Board) -> None:$/;"	f
+event	tetris/tetris.py	/^            event = events.get(TICK)$/;"	v
+game_over	tetris/tetris.py	/^def game_over(board_state: Board) -> bool:$/;"	f
+initialize_board	tetris/tetris.py	/^def initialize_board() -> Board:$/;"	f
 kick	tetris/tetris.py	/^def kick(board_state: Board,$/;"	f
 lock	tetris/tetris.py	/^def lock(board_state: Board) -> Union[bool, Board]:$/;"	f
 long_description	setup.py	/^    long_description = fh.read()$/;"	v
 move	tetris/tetris.py	/^def move(board_state: Board, key: str = 'down') -> Board:$/;"	f
+pop	tetris/tetris.py	/^def pop(board_state: Board) -> Board:$/;"	f
 rot	tetris/tetris.py	/^    def rot(idx: int, dim: int) -> int:$/;"	f	function:true_rotate	file:
 rotate	tetris/tetris.py	/^def rotate(board_state: Board, direction: str = 'clockwise') -> Board:$/;"	f
 store	tetris/tetris.py	/^def store(board_state: Board) -> Board:$/;"	f
+t_i	tetris/tetris.py	/^                t_i = time.perf_counter()$/;"	v
+t_i	tetris/tetris.py	/^        t_i = time.perf_counter()$/;"	v
 translate	tetris/tetris.py	/^def translate(board_state: Board, direction: str = 'down') -> Board:$/;"	f
 true_rotate	tetris/tetris.py	/^def true_rotate(board_state: Board, new_rotation: str = '0') -> List[int]:$/;"	f
