@@ -81,9 +81,10 @@ O_OFFSETS = [
     (-1, 0), # L
 ]
 
-ROTATE_MAP = {'0': 0, 'R': 1, '2': 2, 'L': 3}
-TETROMINO_MAP = {'I': 0, 'J': 1, 'L': 2, 'O': 3, 'S': 4, 'T': 5, 'Z': 6}
-DIRECTION_MAP = {'clockwise': 1, 'counterclockwise': -1}
+ROTATE_INT = {'0': 0, 'R': 1, '2': 2, 'L': 3}
+INT_ROTATE = ('0', 'R', '2', 'L')
+TETROMINO_INT = {'I': 0, 'J': 1, 'L': 2, 'O': 3, 'S': 4, 'T': 5, 'Z': 6}
+DIRECTION_INT = {'clockwise': 1, 'counterclockwise': -1}
 
 def display(board_state: Board) -> None:
     """Displays the current board state.
@@ -113,10 +114,10 @@ def true_rotate(board_state: Board, new_rotation: str = '0') -> List[int]:
     def rot(idx: int, dim: int) -> int:
         return (dim - 1 - (idx % dim))*dim + idx//dim
 
-    tetromino_idx = TETROMINO_MAP[board_state['tetromino']]
+    tetromino_idx = TETROMINO_INT[board_state['tetromino']]
     tetromino = TETROMINOES[tetromino_idx]
-    current_rotation_idx = ROTATE_MAP[board_state['rotation']]
-    new_rotation_idx = ROTATE_MAP[new_rotation]
+    current_rotation_idx = ROTATE_INT[board_state['rotation']]
+    new_rotation_idx = ROTATE_INT[new_rotation]
 
     iterations = (4 + new_rotation_idx - current_rotation_idx) % 4
 
@@ -140,17 +141,84 @@ def collision(board_state: Board) -> bool:
     """
     pass
 
+
+def kick(board_state: Board,
+         rotated_board_state: Board,
+         k: int,
+) -> Union[bool, Board]:
+    """Translates the rotated board using the offset tables.
+
+    Returns the kicked board if there is a kick available. Otherwise, returns
+    False.
+
+    Args:
+        board_state: 
+        rotated_board_state: 
+        k: The offset index to use.
+
+    Returns:
+        
+    """
+
+    i_rotate = ROTATE_INT[board_state['rotation']]
+    f_rotate = ROTATE_INT[rotated_board_state['rotation']]
+
+    if board_state['tetromino'] == 'O':
+        if k != 0:
+            return False
+        i_offset = O_OFFSETS[i_rotate]
+        f_offset = O_OFFSETS[f_rotate]
+
+    elif ~(0 <= k <= 4):
+        return False
+
+    elif board_state['tetromino'] == 'I':
+        i_offset = I_OFFSETS[i_rotate*5 + k]
+        f_offset = I_OFFSETS[f_rotate*5 + k]
+
+    else:
+        i_offset = OFFSETS[i_rotate*5 + k]
+        f_offset = OFFSETS[f_rotate*5 + k]
+
+    x_kick = f_offset[0] - i_offset[0]
+    y_kick = f_offset[1] - i_offset[1]
+
+    kicked_board_state = rotated_board_state.copy()
+
+    kicked_board_state['x'] += x_kick
+    kicked_board_state['y'] += y_kick
+
+    return kicked_board_state
+
 def rotate(board_state: Board, direction: str = 'clockwise') -> Board:
     """Attempts to rotate the current piece in the given direction.
 
     Args:
         board_state:
         direction:
-    
+
     Returns:
         A new board state.
     """
-    pass
+
+    rotate_offset = DIRECTION_INT[direction]
+    current_rotate = ROTATE_INT[Board['rotation']]
+    new_rotate = (current_rotate + rotate_offset) % 4
+
+    rotated_board_state = board_state.copy()
+    rotated_board_state['rotation'] = INT_ROTATE[new_rotate]
+
+    k = 0
+    kicked_board_state = kick(board_state, rotated_board_state, k)
+
+    while collision(kicked_board_state):
+        k += 1
+        if kicked_board_state := kick(board_state, rotated_board_state, k):
+            continue
+        else:
+            return board_state
+
+    return kicked_board_state
 
 def translate(board_state: Board, direction: str = 'down') -> Board:
     """Attempts to translate the current piece in the given direction.
